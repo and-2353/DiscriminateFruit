@@ -10,7 +10,7 @@ print(path_data)
 
 with open('RGBValue.csv', 'w', newline='') as f:
     writer = csv.writer(f)
-
+    writer.writerow(['B', 'G', 'R', 'Label'])
     for file in glob.glob(path_data+'\*.jpg'):
         print(file)
         a_or_o = file.replace(path_data, '')[1]
@@ -27,7 +27,7 @@ with open('RGBValue.csv', 'w', newline='') as f:
         b_ave = b_sum / num_pixel
         g_ave = g_sum / num_pixel
         r_ave = r_sum / num_pixel
-        print("B: ", b_ave, "G: ", g_ave, "R: ", r_ave)
+        print('B: ', b_ave, 'G: ', g_ave, 'R: ', r_ave)
         writer.writerow([b_ave, g_ave, r_ave, a_or_o])
 
     

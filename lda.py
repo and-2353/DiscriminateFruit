@@ -10,30 +10,39 @@ def Standardization(X):
         scaler = StandardScaler()
         scaler.fit_transform(X)
         X_std = pd.DataFrame(scaler.transform(X), columns=X.columns)
-        #print(X_std)
         return X_std
-    
 
-def main(Standardization_flag):
-
-    data = pd.read_csv('RGBValue.csv', encoding='utf-8', header=None, names=['B', 'G', 'R', 'a_or_o'])
-    #print(data)
-
-    X = data.drop('a_or_o', axis=1)
-    y = data['a_or_o']
-
-    if Standardization_flag:
-        X = Standardization(X)
-        print('X is Standardized')
-    print(X)
-    # クラスタリングもする
-
+def lda(X, y):
     clf = LDA()
     clf.fit(X, y)
 
     print(clf.predict(X))
     print(clf.score(X, y))
     print(clf.coef_)
+
+
+def loo(X, y):
+    clf = LDA()
+    loo = LeaveOneOut()
+    scores = cross_validate(clf, X, y, cv=loo)
+
+    print(scores)
+    print(scores['test_score'].mean())
+
+
+def main(Standardization_flag=1):
+    data = pd.read_csv('RGBValue.csv', encoding='utf-8', header=0)
+
+    X = data.drop('Label', axis=1)
+    y = data['Label']
+
+    if Standardization_flag:
+        X = Standardization(X)
+        print('X is Standardized')
+    print(X)
+    lda(X, y) # 判別的中率0.85 (train_data=test_data)
+    loo(X, y) # 判別的中率0.8
+
 
 if __name__ == '__main__':
     Standardization_flag = 1 # 標準化する:1, 標準化しない:0
