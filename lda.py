@@ -31,7 +31,7 @@ def loo(X, y):
 
 
 def main(Standardization_flag=1):
-    data = pd.read_csv('RGBValue.csv', encoding='utf-8', header=0)
+    data = pd.read_csv('RGBValue_cutdata.csv', encoding='utf-8', header=0)
 
     X = data.drop('Label', axis=1)
     y = data['Label']

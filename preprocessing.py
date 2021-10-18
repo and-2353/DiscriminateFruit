@@ -4,16 +4,15 @@ import os
 import csv
 
 path_data = os.getcwd()
-print(path_data)
-path_data += '\data'
-print(path_data)
+path_normal_data = path_data + '\data'
+path_cut_data = path_data + '\cutdata'
 
-with open('RGBValue.csv', 'w', newline='') as f:
+with open('RGBValue_cutdata.csv', 'w', newline='') as f:
     writer = csv.writer(f)
     writer.writerow(['B', 'G', 'R', 'Label'])
-    for file in glob.glob(path_data+'\*.jpg'):
+    for file in glob.glob(path_cut_data+'\*.jpg'):
         print(file)
-        a_or_o = file.replace(path_data, '')[1]
+        a_or_o = file.replace(path_cut_data, '')[1]
         img = cv2.imread(file)
         h, w, d = img.shape
         num_pixel = h*w
@@ -29,6 +28,7 @@ with open('RGBValue.csv', 'w', newline='') as f:
         r_ave = r_sum / num_pixel
         print('B: ', b_ave, 'G: ', g_ave, 'R: ', r_ave)
         writer.writerow([b_ave, g_ave, r_ave, a_or_o])
+
 
     
     
