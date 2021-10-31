@@ -1,4 +1,4 @@
-# discriminate_fruit
+# DiscriminateFruit
 リンゴとミカンの画像に対して線形判別分析(LDA)を行う。<br>
 画像はRGB値の平均値が抜き出され、3個の特徴量(RGB）に変換される。<br>
 3個の特徴量がLDAの入力となる。<br>
